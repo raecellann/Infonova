@@ -1,0 +1,22 @@
+# Virtual environment
+venv/
+.venv/
+
+# Environment variables
+.env
+
+models/ngram_model_v1.pkl
+models/naive_model.pkl
+
+trained_models/*
+
+model_data/*
+
+models/*
+
+data/datasets.pkl
+
+
+# Python cache
+__pycache__/
+*.pyc

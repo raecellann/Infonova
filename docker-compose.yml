@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend/
+    container_name: nlp-backend
+    ports:
+      - 8000:8000
+    environment:
+      - MONGODB_URI=${MONGODB_URI}
+      - PYTHONPATH=/app
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  frontend1:
+    build: 
+      context: ./frontend/
+    environment:
+      - PORT=3000
+      - HOST=0.0.0.0
+      - APPNAME=frontend1
+    ports:
+      - "3001:3000"
+    networks:
+      - app-network
+
+  frontend2:
+    build: 
+      context: ./frontend/
+    environment:
+      - PORT=3000
+      - HOST=0.0.0.0
+      - APPNAME=frontend2
+    ports:
+      - "3002:3000"
+    networks:
+      - app-network
+
+  loadbalancer:
+    build: ./haproxy
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend1
+      - frontend2
+    environment:
+      - FRONTEND_1=frontend1:3000
+      - FRONTEND_2=frontend2:3000
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

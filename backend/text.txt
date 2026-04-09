@@ -1,0 +1,56 @@
+root: MySQL username.
+
+password: MySQL password.
+
+localhost: Host where your MySQL database is running.
+
+3306: Default MySQL port.
+
+database: The name of the database.
+
+
+
+
+
+python3/py -m venv venv
+
+ctrl + shift + p --> select interpreter with venv
+python3/py -m pip install --upgrade pip
+
+./venv/Scripts/activate
+
+python/py -m pip install mysql-connector-python
+python/py -m pip install python-dotenv
+
+# FOR Lightweight Setup of JasonWebToken
+python/py -m pip install PyJWT
+# FOR Extended Support of JasonWebToken (optional)
+python/py -m pip install python-jose[cryptography]
+
+python/py -m pip install fastapi
+python/py -m pip install uvicorn
+
+
+
+
+# SETUP ENV VARIABLE to Console before run
+# FOR Powershell
+$env:PORT=3000
+uvicorn main:app --reload --port $env:PORT
+
+# FOR WSL LINUX
+export PORT=3000
+uvicorn main:app --reload --port $PORT
+
+
+
+
+
+# run in ubuntu wsl
+./build.sh
+
+
+
+
+# run in windows shell/Powershell --- PS too long to process i recommend to use git bash or WSL
+powershell -ExecutionPolicy Bypass -File build_windows.ps1
